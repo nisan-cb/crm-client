@@ -1,0 +1,27 @@
+form{
+    display: flex;
+    flex-direction: column;
+    max-width: 50%;
+    margin: 0 auto;
+}
+
+#msg{
+    min-width: 300px;
+    min-height: 50px;
+
+    box-shadow: 0 0 8px gray;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    animation: disappear 4s;
+}
+
+@keyframes disappear {
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+        display: none;
+    }
+}
