@@ -1,0 +1,2 @@
+body{margin:0;padding:0}.App{text-align:center}form{display:flex;flex-direction:column;margin:0 auto;max-width:50%}#msg{-webkit-animation:disappear 4s;animation:disappear 4s;bottom:10px;box-shadow:0 0 8px gray;left:10px;min-height:50px;min-width:300px;position:fixed}@-webkit-keyframes disappear{0%{opacity:1}to{display:none;opacity:0}}@keyframes disappear{0%{opacity:1}to{display:none;opacity:0}}
+/*# sourceMappingURL=main.df86a335.css.map*/
