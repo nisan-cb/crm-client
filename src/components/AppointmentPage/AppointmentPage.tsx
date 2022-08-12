@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import BookingForm from "../BookingForm/BookingForm";
 import './appointmentPage.scss'
-const base_url = 'http://ncb-crm.herokuapp.com';
+const base_url = 'https://ncb-crm.herokuapp.com';
 const local_host = 'http://localhost:4000'
 
 function AppiontmentPage() {
@@ -8,33 +9,27 @@ function AppiontmentPage() {
     const [branchesList, setBranchesList] = useState<any[]>([]);
     const [msg, setMsg] = useState<string>('msg');
 
+    // data send to server
+
+
     useEffect(() => {
         // get all services type from server
         fetch(`${base_url}/api/services`)
             .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                setServicesList(data)
-            })
+            .then(data => { setServicesList(data) })
             .catch(err => console.log(err));
 
         // get all branches from server
-        fetch(`${local_host}/api/branches`)
+        fetch(`${base_url}/api/branches`)
             .then(response => response.json())
             .then(data => setBranchesList(data))
             .catch(err => console.log(err));
     }, []);
 
-    // run when cklick on submit
-    const submitHandler = (e: any) => {
+    // run when click on submit
+    const submitHandler = (e: any, appiontmentData: any) => {
         e.preventDefault();
-        const appiontmentData = {
-            service: e.target.elements.service.value,
-            branch: e.target.elements.branch.value,
-            client_id: e.target.elements.id.value,
-            client_name: e.target.elements.name.value,
-            phone_number: e.target.elements.phoneNumber.value,
-        }
+        console.log(appiontmentData)
         // sent POST request to server
         fetch(`${base_url}/api/insertNewRecord`, {
             method: "POST",
@@ -64,33 +59,13 @@ function AppiontmentPage() {
     return (
         <section>
             appiontment page!!
-            <div>
-                <form onSubmit={submitHandler}>
-                    <select name='service'>
-                        {
-                            servicesList.map(item => {
-                                return <option value={item.code} key={item.code}>{item.description}</option>
-                            })
-                        }
-                    </select>
-
-                    <select name='branch'>
-                        {
-                            branchesList.map(item => {
-                                return <option value={item.code} key={item.code}>{item.city}</option>
-                            })
-                        }
-                    </select>
-
-                    privet details
-                    <input type="text" placeholder="id" name="id" />
-                    <input type="text" placeholder="name" name="name" />
-                    <input type="text" placeholder="phone number" name="phoneNumber" />
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
+            <BookingForm
+                servicesList={servicesList}
+                branchesList={branchesList}
+                setMsg={setMsg}
+                submitHandler={submitHandler}
+            ></BookingForm>
             {displayMsg(msg)}
-
         </section >
     )
 }

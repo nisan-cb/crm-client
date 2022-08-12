@@ -17,10 +17,11 @@ function App() {
 
 function currentPage() {
   const path = window.location.pathname;
+  console.log(path);
   switch (path) {
-    case '/':
+    case '/crm-client':
       return <AppiontmentPage></AppiontmentPage>
-    case '/admin':
+    case '/crm-client/admin/':
       return <AdminArea></AdminArea>
     default:
       break;
