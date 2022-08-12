@@ -19,6 +19,7 @@ function currentPage() {
   const path = window.location.pathname;
   console.log(path);
   switch (path) {
+    case '/crm-client/':
     case '/crm-client':
       return <AppiontmentPage></AppiontmentPage>
     case '/crm-client/admin/':
