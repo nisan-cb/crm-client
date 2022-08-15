@@ -20,9 +20,9 @@ function currentPage() {
   console.log(path);
   switch (path) {
     case '/crm-client/':
-    case '/crm-client':
+    case '/':
       return <AppiontmentPage></AppiontmentPage>
-    case '/crm-client/admin/':
+    case '/admin':
       return <AdminArea></AdminArea>
     default:
       break;

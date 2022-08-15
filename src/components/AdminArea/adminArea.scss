@@ -1,0 +1,40 @@
+table{
+    width: 100%;
+    tr:first-child{
+        background-color: rgb(230, 209, 250);
+    }
+    tbody{
+        tr:nth-child(even){
+            background-color: aliceblue;
+        }
+    }
+}
+
+
+#heder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    box-shadow: 0 0 8px rgb(196, 196, 196);
+    text-align: center;
+
+}
+
+ul{
+    text-align: center;
+    li{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 30px;
+        box-shadow: 0 0 8px rgb(196, 196, 196);
+        margin: 10px 0;
+        cursor: pointer;
+    }
+    li:hover{
+        transform: translateY(-2px);
+    }
+}
