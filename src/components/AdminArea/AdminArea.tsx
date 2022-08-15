@@ -1,12 +1,19 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, ReactElement, ReactHTMLElement, useEffect, useState } from "react";
 
 import './adminArea.scss'
 const localhost = 'http://localhost:4000';
+
+interface ChangObj {
+    target: HTMLSelectElement,
+    record: any
+}
 
 function AdminArea() {
 
     const [records, setRecords] = useState<any[]>([]);
     const [statusTypes, setStatusTypes] = useState<string[]>([]);
+    const [popup, setPopup] = useState<boolean>(false);
+    const [changObj, setChangeObg] = useState<ChangObj>();
 
     useEffect(() => {
         fetch(`${localhost}/api/status-options`)
@@ -33,19 +40,39 @@ function AdminArea() {
     }, []);
 
 
-
-    const changeStatus = (e: any, record: any) => {
+    const popUp = () => {
+        console.log('popup')
+        console.log(changObj)
+        return (
+            <div className="popup">
+                <h3>Are you sure you want to change record status?</h3>
+                <button onClick={() => {
+                    changObj!.target.value = changObj!.record.status;
+                    setPopup(false)
+                }}>No</button>
+                <button onClick={() => {
+                    changeStatus(changObj?.target, changObj?.record)
+                    setPopup(false);
+                }
+                }>Yes</button>
+            </div>
+        )
+    }
+    const changeStatus = (target: any, record: any) => {
         console.log('change')
-        console.log(e.target.value)
+        console.log(target)
         console.log(record)
-        const newStatus = e.target.value;
+        const newStatus = target.value;
         const recordNumber = record.number
         fetch(`${localhost}/api/update-record-status/${recordNumber}/${newStatus}`,
             {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
             })
-            .then(response => console.log('res'))
+            .then(response => {
+                console.log('res')
+            })
+
     }
 
     return (
@@ -74,7 +101,11 @@ function AdminArea() {
                                 {/* <td>{record.status}</td> */}
 
                                 <td>
-                                    <select defaultValue={record.status} onChange={(e) => changeStatus(e, record)}>
+                                    <select defaultValue={record.status} onChange={(e) => {
+                                        setChangeObg({ 'target': e.target, 'record': record })
+                                        setPopup(true)
+                                    }
+                                    }>
                                         {
                                             statusTypes.map(s => {
                                                 return <option key={s} value={s}>{s}</option>
@@ -88,6 +119,7 @@ function AdminArea() {
                     }
                 </tbody>
             </table>
+            {popup ? popUp() : ''}
         </>
     )
 }
