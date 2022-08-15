@@ -9,8 +9,6 @@ function AppiontmentPage() {
     const [branchesList, setBranchesList] = useState<any[]>([]);
     const [msg, setMsg] = useState<string>('msg');
 
-    // data send to server
-
 
     useEffect(() => {
         // get all services type from server
@@ -29,7 +27,6 @@ function AppiontmentPage() {
     // run when click on submit
     const submitHandler = (e: any, appiontmentData: any) => {
         e.preventDefault();
-        console.log(appiontmentData)
         // sent POST request to server
         fetch(`${base_url}/api/insertNewRecord`, {
             method: "POST",
@@ -55,10 +52,15 @@ function AppiontmentPage() {
 
     }
 
+    const goToAdminArea = () => {
+        window.location.href = '/admin'
+    }
+
 
     return (
         <section>
-            appiontment page!!
+            appiontment page
+            <button id="btn-admin" onClick={goToAdminArea}>Admin</button>
             <BookingForm
                 servicesList={servicesList}
                 branchesList={branchesList}

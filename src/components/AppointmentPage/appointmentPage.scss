@@ -26,3 +26,24 @@ section{
         display: none;
     }
 }
+
+#btn-admin{
+    position: absolute;
+    top:10px;
+    right: 10px;
+    padding: 10px 20px;
+    animation: grow 4s infinite;
+}
+
+@keyframes grow{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.2)
+    }
+    100%{
+        transform: scale(1);
+        
+    }
+}

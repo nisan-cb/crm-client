@@ -1,6 +1,8 @@
 import React, { ChangeEvent, ReactElement, ReactHTMLElement, useEffect, useState } from "react";
 
 import './adminArea.scss'
+
+const base_url = 'https://ncb-crm.herokuapp.com';
 const localhost = 'http://localhost:4000';
 
 interface ChangObj {
@@ -16,7 +18,7 @@ function AdminArea() {
     const [changObj, setChangeObg] = useState<ChangObj>();
 
     useEffect(() => {
-        fetch(`${localhost}/api/status-options`)
+        fetch(`${base_url}/api/status-options`)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -25,7 +27,7 @@ function AdminArea() {
             })
             .catch(err => console.log(err));
 
-        fetch(`${localhost}/api/records`)
+        fetch(`${base_url}/api/records`)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -60,11 +62,9 @@ function AdminArea() {
     }
     const changeStatus = (target: any, record: any) => {
         console.log('change')
-        console.log(target)
-        console.log(record)
         const newStatus = target.value;
         const recordNumber = record.number
-        fetch(`${localhost}/api/update-record-status/${recordNumber}/${newStatus}`,
+        fetch(`${base_url}/api/update-record-status/${recordNumber}/${newStatus}`,
             {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
